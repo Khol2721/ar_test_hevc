@@ -352,9 +352,8 @@
                 id="Video_Asset_0"
                 loop
                 crossorigin="anonymous"
-                src="./static/assets/videos/ar16.webm"
+                src="./static/assets/videos/ar16.mp4"
                 webkit-playsinline
-                autoplay
                 muted
                 playsinline
                 controls
@@ -379,7 +378,8 @@
                 src="#Video_Asset_0" 
                 class="intersectable" 
                 position="0 0 1" 
-                rotation="-90 0 0" 
+                rotation="-90 0 0"
+                material="shader: chromakey; color: {{ chromakey }}" 
                 color="#74cccb00" 
                 look-at="[camera]"
             ></a-video>

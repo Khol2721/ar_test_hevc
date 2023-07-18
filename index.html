@@ -30,9 +30,10 @@
         }
     
         #playButton {
-            width: 48px;
+            width: 50px;
             height: 50px;
             border: 0px solid black;
+            background-color: #b1a7a5b0;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -44,32 +45,64 @@
             width: 100%;
             margin-left: 5px;
         }
-    
-        #FullScreenButtonDIV{
-            width: 100%;
+        
+        #button_container{ 
             height: 100%;
+            width: 100%;
             position: absolute;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            bottom: 20px;
+        }
+        
+        #FullScreenButtonDIV{
+            margin: 10px;
             text-align: center;
-            display: none;
-            flex-direction: row-reverse;
-            flex-wrap: wrap-reverse;
-            margin-right: 30px;
-            margin-bottom: 30px;
+            display: flex;
         }
         #FullScreenButton{
             z-index: 1;
+            border-radius: 10px;
+            padding: 5px;
             border: none;
             height: 50px;
             width: 50px;
-            background: #b1a7a562;
+            background: #b1a7a5b0;
             display: flex;
             justify-content: center;
             align-items: center;
         }
     
         #FullScreenButton img{
-            width: 170%;
-            height:auto;
+            width: 130%;
+            height: auto;
+            margin-bottom: 3px;
+        }
+
+        #MuteButtonDIV{
+            margin: 10px;
+            text-align: center;
+            display: flex;
+        }
+
+        #MuteButton{
+            z-index: 1;
+            border-radius: 10px;
+            border: none;
+            padding: 5px;
+            height: 50px;
+            width: 50px;
+            background: #b1a7a5b0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #MuteButton img{
+            width: 100%;
+            height: auto;
             margin-bottom: 3px;
         }
 
@@ -154,7 +187,7 @@
                         if(fullscreenIOS == 0){
                             fullscreenIOS = 1;
                             window.parent.postMessage('1');
-                            button.style.width = "170%"
+                            button.style.width = "130%"
                             button.style.height = "auto";
                             button.style.marginBottom = '0px';
                             button.src = 'assets/ar/standart-size.png';
@@ -163,7 +196,7 @@
                         else{
                             fullscreenIOS = 0;
                             window.parent.postMessage('0');
-                            button.style.width = "170%"
+                            button.style.width = "130%"
                             button.style.height = "auto";
                             button.style.marginBottom = '3px';
                             button.src = 'assets/ar/full-size2.png';
@@ -179,8 +212,8 @@
                         var button = document.getElementById('imgBTN');
                         var docElm = document.documentElement;
                         if (!isInFullScreen) {
-                            button.style.width = "120%"
-                            button.style.height = "90%";
+                            button.style.width = "80%"
+                            button.style.height = "80%";
                             button.style.marginBottom = '0px';
                             button.src = 'assets/ar/standart-size.png';
     
@@ -197,7 +230,7 @@
                             }
     
                         } else {
-                            button.style.width = "170%"
+                            button.style.width = "130%"
                             button.style.height = "auto";
                             button.style.marginBottom = '3px';
                             button.src = 'assets/ar/full-size2.png';
@@ -232,8 +265,8 @@
                     let i = setInterval(function() {
                         if (document.querySelector("#arjs-video")){
                             clearInterval(i);
-                            document.getElementById('playButtonDIV').style.display = 'none';
-
+                            document.getElementById('playButtonDIV').style.display = 'flex';
+                            document.getElementById('MuteButtonDIV').style.display = 'flex';
                             document.getElementById('FullScreenButtonDIV').style.display = 'flex';
                         }
                     }, 1500);
@@ -298,6 +331,18 @@
                     }.bind(this));
                 }
             });
+
+            function mute(btn,elem){
+                var button = document.getElementById('muteBTN');
+                var video = document.getElementById(elem);
+                if (video.muted){
+                    video.muted = false;
+                    button.src = 'assets/ar/button-sound.png';
+                } else{
+                    video.muted = true;
+                    button.src = 'assets/ar/button-mute.png';
+                }
+            }
                 
     </script>
     
@@ -311,13 +356,19 @@
                 </button>
             </div>
     
-    
-            <div id="FullScreenButtonDIV">
-                <button id="FullScreenButton" onclick="fullscreen()">
-                    <img id="imgBTN" src="assets/ar/full-size2.png" alt="">
-                </button>
+            <div id="button_container">
+                <div id="MuteButtonDIV">
+                    <button id="MuteButton" onclick="mute(this, 'music')">
+                        <img id="muteBTN" src="assets/ar/button-sound.png" alt="">
+                    </button>
+                </div>
+                <div id="FullScreenButtonDIV">
+                    <button id="FullScreenButton" onclick="fullscreen()">
+                        <img id="imgBTN" src="assets/ar/full-size2.png" alt="">
+                    </button>
+                </div>
             </div>
-    
+
             <div class="touch"></div>
     
             <div id="modal-wind" class="modal">
@@ -339,7 +390,6 @@
                     id="vid"
                     src="assets/ar16.hevc.mp4"
                     type='video/mp4;codecs=hvc1'
-                    type=""
                     preload="auto"
                     response-type="arraybuffer"
                     loop

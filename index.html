@@ -84,7 +84,7 @@
         #MuteButtonDIV{
             margin: 10px;
             text-align: center;
-            display: flex;
+            display: none;
         }
 
         #MuteButton{
@@ -266,7 +266,7 @@
                         if (document.querySelector("#arjs-video")){
                             clearInterval(i);
                             document.getElementById('playButtonDIV').style.display = 'none';
-                            document.getElementById('MuteButtonDIV').style.display = 'flex';
+                            document.getElementById('MuteButtonDIV').style.display = 'none';
                             document.getElementById('FullScreenButtonDIV').style.display = 'flex';
                         }
                     }, 1500);
@@ -302,6 +302,7 @@
                             let music = document.getElementById('music')
                             music.volume = 0.3;
                             music.play()
+                            document.getElementById('MuteButtonDIV').style.display = 'flex';
                             document.getElementById('playButtonDIV').style.display = 'none';
                             this.vid.muted = false;
                             firstEnter = false;
